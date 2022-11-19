@@ -1,25 +1,32 @@
 import React from 'react';
-import { GestureResponderEvent, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { GestureResponderEvent, Image,ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import PublicText from '../../../components/common/PublicText';
 
 type Props = {
   title: string;
+  distance: number;
+  location: string;
   image?: string;
   onPress?: ((event: GestureResponderEvent) => void) | undefined;
 };
 
 const DEFAULT_IMAGE = require('../../../assets/images/store-default-image.png');
-const StoreListItem: React.FC<Props> = ({title, image, onPress}) => {
+const StoreListItem: React.FC<Props> = ({title, distance, location, leftOver, sale, image, onPress}) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <ImageBackground
+      <View style={styles.titleContainer}>
+          <PublicText style={styles.title}>{title}</PublicText>
+          <PublicText style={styles.location}>{distance}km|{location}</PublicText>
+      </View>
+      <Image
         source={image ? {uri: image} : DEFAULT_IMAGE}
         style={styles.backgroundImage}>
-        <View style={styles.titleContainer}>
-          <PublicText style={styles.title}>{title}</PublicText>
-        </View>
-      </ImageBackground>
+      </Image>
+      <View style={styles.infoContainer}>
+          <PublicText style={styles.leftOver}>잔여수량:{leftOver}개</PublicText>
+          <PublicText style={styles.sale}>{sale}%</PublicText>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -38,7 +45,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     width: '100%',
-    height: 200,
+    height: 150,
     borderRadius: 20,
     overflow: 'hidden',
     alignItems: 'flex-end',

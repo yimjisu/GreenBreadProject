@@ -3,7 +3,8 @@ import React from 'react';
 import {useState} from 'react';
 import {useCallback} from 'react';
 import {useEffect} from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
+import PublicText from '../../components/common/PublicText';
 
 import ScreenContainer from '../../components/layout/ScreenContainer';
 import {RootStackParamList} from '../RootStackNavigator';
@@ -20,6 +21,31 @@ type Data = {
   type: string;
 };
 
+const data = [
+  {
+    title: 'Bread1',
+    id: 1,
+    distance: 2.2,
+    location: '월평동',
+    leftOver: 10,
+    dcRate : 30,
+  },{
+    title: 'Bread2',
+    id: 2,
+    distance: 1.4,
+    location: '월평동',
+    leftOver: 10,
+    dcRate : 30,
+  },{
+    title: 'Bread3',
+    id: 3,
+    distance: 1.8,
+    location: '월평동',
+    leftOver: 10,
+    dcRate : 30,
+  },
+];
+
 type Props = NativeStackScreenProps<RootStackParamList, 'StoreList'>;
 const StoreListScreen: React.FC<Props> = ({navigation}) => {
   const [storeList, setStoreList] = useState<Data[]>([]);
@@ -27,18 +53,7 @@ const StoreListScreen: React.FC<Props> = ({navigation}) => {
   useEffect(() => {
     async function init() {
       try {
-        setStoreList([
-          {
-            title: 'Bread1',
-            id: 1,
-          },{
-            title: 'Bread2',
-            id: 2,
-          },{
-            title: 'Bread3',
-            id: 3,
-          },
-        ]);
+        setStoreList(data);
       } catch (error) {
         console.error(error);
       }
@@ -55,12 +70,19 @@ const StoreListScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <ScreenContainer>
-      <ScrollView>
+      <View style={styles.titleContainer}>
+          <PublicText>NOW</PublicText>
+      </View>
+      <ScrollView horizontal>
         {storeList.map((row, index) => {
           return (
             <StoreListItem
               key={index}
               title={row.title}
+              distance={row.distance}
+              location={row.location}
+              leftOver={row.leftOver}
+              sale={row.dcRate}
               image={row.type && row.image ? `${row.type}${row.image}` : null}
               onPress={onPressStore(row.id)}
             />
@@ -70,5 +92,12 @@ const StoreListScreen: React.FC<Props> = ({navigation}) => {
     </ScreenContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    borderRadius: 20,
+    paddingHorizontal: 20,
+  },
+});
 
 export default StoreListScreen;
