@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "847295104580",
-    "project_id": "greenbread-93926",
-    "storage_bucket": "greenbread-93926.appspot.com"
+    "project_number": "1092308215650",
+    "project_id": "greenbread-e0992",
+    "storage_bucket": "greenbread-e0992.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:847295104580:android:a3c3123b29944293f41e11",
+        "mobilesdk_app_id": "1:1092308215650:android:95bc0f74741699a0e9ee3b",
         "android_client_info": {
           "package_name": "com.greenbreadproject"
         }
       },
       "oauth_client": [
         {
-          "client_id": "847295104580-5k813n4vlaur99r928ljeqmcg1pem9rj.apps.googleusercontent.com",
+          "client_id": "1092308215650-c6steaii5dc7qjkbpr86ke7hrbv6bc6o.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.greenbreadproject",
-            "certificate_hash": "e5e9d188f04a82dc00a627c7da8fcd50d8494e67"
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
-          "client_id": "847295104580-og8se0colj000kl5gbokiaj8g867b71s.apps.googleusercontent.com",
+          "client_id": "1092308215650-7ton159bcg24feltl0pnac1598q8i85p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAZy6NuvaEdLM9HbIgZRPLu3Fs7UMhgpng"
+          "current_key": "AIzaSyCNk3Wzbx0_ZkGuxWcnPvAA6xqFg5lhz-I"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "847295104580-og8se0colj000kl5gbokiaj8g867b71s.apps.googleusercontent.com",
+              "client_id": "1092308215650-7ton159bcg24feltl0pnac1598q8i85p.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
