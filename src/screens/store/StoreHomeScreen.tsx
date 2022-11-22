@@ -1,59 +1,31 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import PublicText from '../../components/common/PublicText';
 import ScreenContainer from '../../components/layout/ScreenContainer';
 import { RootStackParamList } from '../RootStackNavigator';
 import FloatingActionButtton from './components/FloatingActionButton';
 
-const data = [
-  {
-    title: '글 제목',
-    content: '글 내용',
-  },
-  {
-    title: '글 제목',
-    content: '글 내용',
-  },
-  {
-    title: '글 제목',
-    content: '글 내용',
-  },
-  {
-    title: '글 제목',
-    content: '글 내용',
-  },
-  {
-    title: '글 제목',
-    content: '글 내용',
-  },
-  {
-    title: '글 제목',
-    content: '글 내용',
-  },
-];
 
-type Props = NativeStackScreenProps<RootStackParamList, 'ClubHome'>;
+
+const Tab = createMaterialTopTabNavigator();
+
+type Props = NativeStackScreenProps<RootStackParamList, 'StoreHome'>;
 const StoreHomeScreen: React.FC<Props> = ({navigation, route}) => {
-  const {clubId} = route.params;
+  const {storeId} = route.params;
 
   useEffect(() => {
     // todo: 네트워킹
   }, []);
   return (
     <ScreenContainer>
-      <FlatList
-        data={data}
-        renderItem={({item}) => {
-          return (
-            <View style={listItemStyles.container}>
-              <PublicText>{item.title}</PublicText>
-            </View>
-          );
-        }}
-      />
-      <FloatingActionButtton clubId={clubId} />
+      <Tab.Navigator>
+        <Tab.Screen name="메뉴" component={MenuScreen} />
+        <Tab.Screen name="빵집 정보" component={StoreInfoScreen} />
+        <Tab.Screen name="후기" component={ReviewScreen} />
+      </Tab.Navigator>
     </ScreenContainer>
   );
 };

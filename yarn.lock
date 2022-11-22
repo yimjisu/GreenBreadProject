@@ -1376,6 +1376,11 @@
     "@types/yargs" "^16.0.0"
     "chalk" "^4.0.0"
 
+"@jiggag/react-native-kakao-maps@^0.0.8":
+  "integrity" "sha512-80DLhxdGz0+mqe7mP1SVu4kT+FjNxgQqZtLa4uRvBZeN96ofj979ub1usMNhcaZg3QautcRNejapjh7CGrr1Og=="
+  "resolved" "https://registry.npmjs.org/@jiggag/react-native-kakao-maps/-/react-native-kakao-maps-0.0.8.tgz"
+  "version" "0.0.8"
+
 "@jridgewell/gen-mapping@^0.1.0":
   "integrity" "sha512-sQXCasFk+U8lWYEe66WxRDOE9PjVz4vSM51fTu3Hw+ClTpUSQb718772vH3pyS5pShp6lvQM7SxgIDXXXmOX7w=="
   "resolved" "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz"
@@ -1729,6 +1734,14 @@
   "integrity" "sha512-pNJ8R9JMga6SXOw6wGVN0tjmE6vegwPmJBL45SEMX2fqTfAk2ykDnlJHodRpHpAgsv0DaI8qX76z3A+aqKSU0w=="
   "resolved" "https://registry.npmjs.org/@react-navigation/elements/-/elements-1.3.6.tgz"
   "version" "1.3.6"
+
+"@react-navigation/material-top-tabs@^6.3.0":
+  "integrity" "sha512-nv9c3WbmzuwYZqDkinP375aTYzQIXkCzAmpHRsVH3AjpF2Qc62oKDjWuSMFdRn3VPe3LAH/0P6yUzQSX/800yQ=="
+  "resolved" "https://registry.npmjs.org/@react-navigation/material-top-tabs/-/material-top-tabs-6.3.0.tgz"
+  "version" "6.3.0"
+  dependencies:
+    "color" "^4.2.3"
+    "warn-once" "^0.1.0"
 
 "@react-navigation/native-stack@^6.9.1":
   "integrity" "sha512-aOuJP97ge6NRz8wH6sDKfLTfdygGmraYh0apKrrVbGvMnflbPX4kpjQiAQcUPUpMeas0betH/Su8QubNL8HEkg=="
@@ -6415,6 +6428,11 @@
   dependencies:
     "prop-types" "^15.5.10"
 
+"react-native-pager-view@*", "react-native-pager-view@^6.1.0", "react-native-pager-view@>= 4.0.0":
+  "integrity" "sha512-wBtc77l+lWRDS1FlpeO+rE0iG/ecRtVhHrERMkm7CACQvhB+ty8NL2zlAzOCCbS83DZrIdtWuPu9VqziKHzJPw=="
+  "resolved" "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-6.1.0.tgz"
+  "version" "6.1.0"
+
 "react-native-reanimated@^2.11.0", "react-native-reanimated@>= 1.0.0":
   "integrity" "sha512-yUHyYVIegWWIza4+nVyS3CSmI/Mc8kLFVHw2c6gnSHaYhYA4LeEjH/jBkoMzHk9Xd0Ra3cwtjYKAMG8OTp6JVg=="
   "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.13.0.tgz"
@@ -6440,6 +6458,13 @@
   dependencies:
     "react-freeze" "^1.0.0"
     "warn-once" "^0.1.0"
+
+"react-native-tab-view@^3.3.0", "react-native-tab-view@>= 3.0.0":
+  "integrity" "sha512-xjAQe657Gp/de2QHb7ptksTg8Jcb+j3fLAdcYryzfavt/pe+HtKLpkCtQsxyIJpRrAO7YPxFsymi2N4MnNfePA=="
+  "resolved" "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "use-latest-callback" "^0.1.5"
 
 "react-native-vector-icons@^9.2.0":
   "integrity" "sha512-wKYLaFuQST/chH3AJRjmOLoLy3JEs1JR6zMNgTaemFpNoXs0ztRnTxcxFD9xhX7cJe1/zoN5BpQYe7kL0m5yyA=="
