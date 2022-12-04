@@ -33,6 +33,7 @@ const CustomTextInput: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   textInput: {
+    color: 'black',
     borderWidth: 1,
     borderColor: '#ccc',
     alignSelf: 'stretch',

@@ -7,23 +7,24 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
 import {useRecoilState} from 'recoil';
 
-import userTokenState from '../../atoms/userTokenState';
 import LightBlueButton from '../../components/buttons/LightBlueButton';
 import PublicText from '../../components/common/PublicText';
 import Logo from '../../components/layout/Logo';
 import ScreenContainer from '../../components/layout/ScreenContainer';
 import {RootStackParamList} from '../RootStackNavigator';
 import CustomTextInput from './components/CustomTextInput';
+import {signIn, resultMessages, signUp} from '../../../lib/auth';
+import userTokenState from '../../atoms/userTokenState';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 const SignInScreen: React.FC<Props> = ({navigation}) => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
-  const [userTokenStateValue, setUserTokenState] =
-    useRecoilState(userTokenState);
+  const [userTokenStateValue, setUserTokenState] = useRecoilState(userTokenState);
   // const navigation = useNavigation();
 
   const onSignIn = useCallback(async () => {
@@ -44,11 +45,15 @@ const SignInScreen: React.FC<Props> = ({navigation}) => {
 
       // token = post_auth_authenticate();
       // {userId, upassword}
-      const token = 'token';
+      const token = await signIn(id, password);
+      console.log(token);
       await AsyncStorage.setItem('token', token);
       setUserTokenState(token);
     } catch (error) {
-      console.error(error);
+      const alertMessage = resultMessages[e.code]
+        ? resultMessages[e.code]
+        : '알 수 없는 이유로 회원A가입에 실패하였습니다.';
+      Alert.alert('회원가입 실패', alertMessage);
     }
 
     // navigation.navigate('ClubList');
@@ -60,10 +65,12 @@ const SignInScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <ScreenContainer style={styles.screenContainer}>
+
       <KeyboardAvoidingView
-        style={styles.rootConstainer}
+        style={styles.rootContainer}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <Logo />
+              <Logo/>
+        <PublicText style={styles.labelText}>아이디</PublicText>
         <CustomTextInput
           placeholder="아이디를 입력하세요."
           value={id}
@@ -72,8 +79,9 @@ const SignInScreen: React.FC<Props> = ({navigation}) => {
             setId(text);
           }}
         />
+        <PublicText style={styles.labelText}>비밀번호</PublicText>
         <CustomTextInput
-          placeholder="패스워드를 입력하세요."
+          placeholder="비밀번호를 입력하세요."
           value={password}
           style={styles.passwordInput}
           secureTextEntry={true}
@@ -83,7 +91,7 @@ const SignInScreen: React.FC<Props> = ({navigation}) => {
         />
         <LightBlueButton title="로그인" onPress={onSignIn} />
         <View style={styles.signUpContainer}>
-          <PublicText>만약 회원이 아니라면</PublicText>
+          <PublicText style={styles.infoText}>Green Bread가 처음이신가요?</PublicText>
           <TouchableOpacity style={styles.signUpButton} onPress={onSignUp}>
             <PublicText style={styles.signUpText}>회원 가입</PublicText>
           </TouchableOpacity>
@@ -97,7 +105,7 @@ const styles = StyleSheet.create({
   screenContainer: {
     justifyContent: 'center',
   },
-  rootConstainer: {
+  rootContainer: {
     alignItems: 'center',
     paddingHorizontal: 20,
   },
@@ -112,8 +120,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  labelText: {
+    color: '#FC6D26',
+    width: '100%',
+    paddingLeft: 10,
+    paddingBottom: 10,
+  },
   signUpText: {
-    color: 'blue',
+    color: '#FC6D26',
+  },
+  infoText: {
+    color: 'gray'
   },
   signUpButton: {
     paddingHorizontal: 10,

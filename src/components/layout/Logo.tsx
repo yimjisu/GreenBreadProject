@@ -10,6 +10,7 @@ const Logo = () => {
 const styles = StyleSheet.create({
   logo: {
     width: 200,
+    height: 300,
   },
 });
 

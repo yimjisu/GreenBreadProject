@@ -52,9 +52,6 @@ const StoreList = ({navigation, title, current}) => {
     async function init() {
       try {
         // [TODO] Backend
-        // getStoreListByType(type); 
-        // type = now, comingsoon
-
         setStoreList(data);
       } catch (error) {
         console.error(error);

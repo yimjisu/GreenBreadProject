@@ -29,7 +29,7 @@ const LightBlueButton: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'lightblue',
+    backgroundColor: '#FC6D26',
     borderWidth: 0,
   },
   text: {

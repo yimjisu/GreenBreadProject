@@ -1,13 +1,16 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useCallback, useState } from 'react';
-import { useMemo } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React, {useCallback, useState} from 'react';
+import {useMemo} from 'react';
+import {KeyboardAvoidingView, Platform, StyleSheet} from 'react-native';
 
 import CancelButton from '../../components/buttons/CancelButton';
 import LightBlueButton from '../../components/buttons/LightBlueButton';
 import ScreenContainer from '../../components/layout/ScreenContainer';
-import { RootStackParamList } from '../RootStackNavigator';
+import {RootStackParamList} from '../RootStackNavigator';
 import CustomTextInput from './components/CustomTextInput';
+import {signUp, resultMessages} from '../../../lib/auth';
+import Logo from '../../components/layout/Logo';
+import PublicText from '../../components/common/PublicText';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
 const SignUpScreen: React.FC<Props> = ({navigation}) => {
@@ -65,6 +68,7 @@ const SignUpScreen: React.FC<Props> = ({navigation}) => {
       // });
       // const responseData = await response.json();
       // console.log('responseData', responseData);
+      const {user} = signUp({password, email});
 
       navigation.goBack();
     } catch (e) {
@@ -77,7 +81,7 @@ const SignUpScreen: React.FC<Props> = ({navigation}) => {
       <KeyboardAvoidingView
         style={styles.rootContainer}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <CustomTextInput
+        {/* <CustomTextInput
           placeholder="아이디를 입력하세요."
           style={styles.emailInput}
           value={id}
@@ -88,22 +92,26 @@ const SignUpScreen: React.FC<Props> = ({navigation}) => {
           style={styles.emailInput}
           value={name}
           onChangeText={onChangeName}
-        />
+        /> */}
+        <Logo />
+         <PublicText style={styles.labelText}>이메일</PublicText>
         <CustomTextInput
           placeholder="이메일을 입력하세요."
           style={styles.emailInput}
           value={email}
           onChangeText={onChangeEmail}
         />
+         <PublicText style={styles.labelText}>비밀번호</PublicText>
         <CustomTextInput
-          placeholder="패스워드를 입력하세요."
+          placeholder="비밀번호를 입력하세요."
           secureTextEntry
           style={styles.passwordInput}
           value={password}
           onChangeText={onChangePassword}
         />
+         <PublicText style={styles.labelText}>비밀번호 확인</PublicText>
         <CustomTextInput
-          placeholder="패스워드를 확인해주세요."
+          placeholder="비밀번호를 확인해주세요."
           secureTextEntry
           style={styles.passwordReInput}
           value={passwordRe}
@@ -114,10 +122,11 @@ const SignUpScreen: React.FC<Props> = ({navigation}) => {
           onPress={onSignUp}
           style={[
             styles.signUpButton,
-            {backgroundColor: disabled === true ? '#ccc' : 'lightblue'},
+            {backgroundColor: disabled === true ? '#ccc' : '#FC6D26'},
           ]}
           disabled={disabled}
         />
+        
         <CancelButton onPress={onCancel} />
       </KeyboardAvoidingView>
     </ScreenContainer>
@@ -126,12 +135,11 @@ const SignUpScreen: React.FC<Props> = ({navigation}) => {
 
 const styles = StyleSheet.create({
   screenContainer: {
-    borderWidth: 1,
+    justifyContent: 'center',
   },
   rootContainer: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
   },
   emailInput: {
     marginBottom: 20,
@@ -144,6 +152,15 @@ const styles = StyleSheet.create({
   },
   signUpButton: {
     marginBottom: 20,
+  },
+  labelText: {
+    color: '#FC6D26',
+    width: '100%',
+    paddingLeft: 10,
+    paddingBottom: 10,
+  },
+  infoText: {
+    color: 'gray'
   },
 });
 

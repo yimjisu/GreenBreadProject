@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import OrderScreen from './tab/OrderScreen';
 import SearchScreen from './tab/SearchScreen';
 
-const RootTabNavigator = () => {
+const RootTabNavigator: React.FC<Props> = ({navigation}) => {
   const Tab = createBottomTabNavigator();
 
   return (
