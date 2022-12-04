@@ -4,19 +4,8 @@ import { GestureResponderEvent, Image, StyleSheet, TouchableOpacity, View } from
 import PublicText from '../../../components/common/PublicText';
 import {getData} from '../../../../lib/firestore';
 
-type Props = {
-  title: string;
-  distance: number;
-  location: string;
-  openTime?: string;
-  closeTime?: string;
-  current: boolean,
-  image?: string;
-  onPress?: ((event: GestureResponderEvent) => void) | undefined;
-};
-
 const DEFAULT_IMAGE = require('../../../assets/images/store-default-image.png');
-const StoreListItem: React.FC<Props> = ({id, onPress, state}) => {
+const ProductItem = ({storeId, productId, onPress}) => {
 
   const [data, setData] = useState({});
   
@@ -24,7 +13,8 @@ const StoreListItem: React.FC<Props> = ({id, onPress, state}) => {
     async function init() {
       try {
         // [TODO] Backend
-        const temp = await getData('store/'+id);
+        const temp = await getData('store/'+storeId+'/product/'+productId);
+        console.log(temp);
         setData(temp);
       } catch (error) {
         console.error(error);
@@ -34,20 +24,16 @@ const StoreListItem: React.FC<Props> = ({id, onPress, state}) => {
   }, []);
 
   return (
-    <>
-      {data.openState == state && (
-        <TouchableOpacity style={styles.container} onPress={onPress}>
-        <View style={styles.titleContainer}>
-            <PublicText style={styles.title}>{data.title}</PublicText>
-            <PublicText style={styles.location}>11km | {data.addr}</PublicText>
-        </View>
-        <Image
-          source={data.image ? {uri: image} : DEFAULT_IMAGE}
-          style={styles.backgroundImage}>
-        </Image>      
-      </TouchableOpacity>
-      )}
-    </>
+  // <TouchableOpacity style={styles.container} onPress={onPress}>
+  //       <View style={styles.titleContainer}>
+  //           <PublicText style={styles.title}>{data.title}</PublicText>
+  //       </View>
+  //       <Image
+  //         source={data.image ? {uri: image} : DEFAULT_IMAGE}
+  //         style={styles.backgroundImage}>
+  //       </Image>      
+  //     </TouchableOpacity>
+  null
   )
 }
 
@@ -78,22 +64,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     color: 'black',
-  },
-  location: {
-    fontSize: 12,
-    color: 'gray'
-  },
-  leftOver: {
-    fontSize: 16,
-    color: 'black'
-  },
-  openTime: {
-    fontSize: 16,
-    color: 'black'
-  },
-  sale: {
-    fontSize: 16,
-    color: 'orange'
   }
 });
-export default StoreListItem;
+export default ProductItem;

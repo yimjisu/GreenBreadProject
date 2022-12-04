@@ -10,8 +10,8 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     return (
     <ScrollView>
         <PublicText style={styles.title}>오늘의 빵</PublicText>
-        <StoreList navigation={navigation} title='NOW' current/>
-        <StoreList navigation={navigation} title='Coming Soon'/>
+        <StoreList navigation={navigation} title='NOW' state='open'/>
+        <StoreList navigation={navigation} title='Coming Soon' state='ready'/>
         {/* <ReviewListScreen /> */}
     </ScrollView>
     )

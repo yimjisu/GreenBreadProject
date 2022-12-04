@@ -6,58 +6,22 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import PublicText from '../../../components/common/PublicText';
 
 import StoreListItem from './StoreListItem';
+import {getDocsId} from '../../../../lib/firestore';
 
-type Data = {
-  id: number;
-  title: string;
-  summary: string;
-  status?: string;
-  createdAt: Date;
-  image: string;
-  imageStr?: string;
-  type: string;
-};
 
-const data = [
-  {
-    title: 'Bread1',
-    id: 1,
-    distance: 2.2,
-    location: '월평동',
-    leftOver: 10,
-    dcRate : 30,
-    openTime: 9,
-    closeTime: 9,
-  },{
-    title: 'Bread2',
-    id: 2,
-    distance: 1.4,
-    location: '월평동',
-    leftOver: 10,
-    dcRate : 30,
-  },{
-    title: 'Bread3',
-    id: 3,
-    distance: 1.8,
-    location: '월평동',
-    leftOver: 10,
-    dcRate : 30,
-  },
-];
-
-const StoreList = ({navigation, title, current}) => {
-  const [storeList, setStoreList] = useState<Data[]>([]);
+const StoreList = ({navigation, title, state}) => {
+  const [storeList, setStoreList] = useState([]);
 
   useEffect(() => {
     async function init() {
       try {
         // [TODO] Backend
+        const data = await getDocsId('store');
         setStoreList(data);
       } catch (error) {
         console.error(error);
       }
     }
-
     init();
   }, []);
 
@@ -71,20 +35,13 @@ const StoreList = ({navigation, title, current}) => {
       <View style={styles.container}>
       <PublicText style={styles.title}>{title}</PublicText>
         <ScrollView horizontal>
-        {storeList.map((row, index) => {
+        {storeList.map((id) => {
           return (
             <StoreListItem
-              key={index}
-              title={row.title}
-              distance={row.distance}
-              location={row.location}
-              openTime={row.openTime}
-              closeTime={row.closeTime}
-              leftOver={row.leftOver}
-              sale={row.dcRate}
-              current={current}
-              image={row.type && row.image ? `${row.type}${row.image}` : null}
-              onPress={onPressStore(row.id)}
+              key={id}
+              id={id}
+              onPress={onPressStore(id)}
+              state={state}
             />
           );
         })}
