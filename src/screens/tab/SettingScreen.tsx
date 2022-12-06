@@ -2,7 +2,7 @@ import {View} from 'react-native';
 import PublicText from '../../components/common/PublicText';
 import ScreenContainer from '../../components/layout/ScreenContainer';
 import React, {useCallback} from 'react';
-import LightBlueButton from '../../components/buttons/LightBlueButton';
+import OrangeButton from '../../components/buttons/LightBlueButton';
 import {signOut} from '../../../lib/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import userTokenState from '../../atoms/userTokenState';
@@ -26,7 +26,7 @@ const SettingScreen: React.FC<Props> = ({navigation}) => {
     <ScreenContainer>
       <View>
         <PublicText>setting</PublicText>
-        <LightBlueButton title="로그아웃" onPress={onSignOut} />
+        <OrangeButton title="로그아웃" onPress={onSignOut} />
       </View>
     </ScreenContainer>
   );

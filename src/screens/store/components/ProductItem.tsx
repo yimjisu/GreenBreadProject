@@ -2,20 +2,28 @@ import React, {useEffect, useState} from 'react';
 import { GestureResponderEvent, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import PublicText from '../../../components/common/PublicText';
-import {getData} from '../../../../lib/firestore';
+import firestore from '@react-native-firebase/firestore';
 
-const DEFAULT_IMAGE = require('../../../assets/images/store-default-image.png');
-const ProductItem = ({storeId, productId, onPress}) => {
-
+const DEFAULT_IMAGE = require('../../../assets/product-images/단팥빵.png');
+const ProductItem: React.FC<Props> = ({storeId, productId, onPress}) => {
   const [data, setData] = useState({});
-  
   useEffect(() => {
     async function init() {
       try {
-        // [TODO] Backend
-        const temp = await getData('store/'+storeId+'/product/'+productId);
-        console.log(temp);
-        setData(temp);
+        firestore()
+          .collection('store')
+          .doc(storeId)
+          .collection('product')
+          .doc(productId)
+          .get()
+          .then(doc => {
+            if (doc.exists) {
+              setData(doc.data());
+            } else {
+              // doc.data() will be undefined in this case
+              console.log('No such document!');
+            }
+          });
       } catch (error) {
         console.error(error);
       }
@@ -24,45 +32,52 @@ const ProductItem = ({storeId, productId, onPress}) => {
   }, []);
 
   return (
-  // <TouchableOpacity style={styles.container} onPress={onPress}>
-  //       <View style={styles.titleContainer}>
-  //           <PublicText style={styles.title}>{data.title}</PublicText>
-  //       </View>
-  //       <Image
-  //         source={data.image ? {uri: image} : DEFAULT_IMAGE}
-  //         style={styles.backgroundImage}>
-  //       </Image>      
-  //     </TouchableOpacity>
-  null
+      <TouchableOpacity style={styles.container} onPress={onPress}>
+        <Image
+          source={data.image ? {url: image} : DEFAULT_IMAGE}
+          style={styles.backgroundImage}>
+        </Image>      
+        <View style={styles.titleContainer}>
+          <PublicText style={styles.title}>{data.title}</PublicText>
+          <PublicText style={styles.infoText}>잔여수량    {data.amount}개</PublicText>
+          <PublicText style={styles.infoText}>판매가격    {data.origin_price}원</PublicText>
+          <PublicText style={styles.infoText}>할인가격    {data.dc_price}원</PublicText>
+        </View>
+      </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    width: 250,
     borderRightColor: '#D9D9D9',
     borderRightWidth: 1,
-  },
-  titleContainer: {
-    width: '100%',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    flex: 1,
+    flexDirection: "row",
     padding: 10,
   },
   backgroundImage: {
-    width: '100%',
+    width: 150,
     height: 150,
     borderRadius: 20,
     overflow: 'hidden',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
     borderWidth: 1,
     borderColor: '#ccc',
     marginBottom: 20,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    marginRight: 10,
+  },
+  titleContainer: {
+    width: '100%',
   },
   title: {
     fontSize: 16,
+    color: 'black',
+    fontWeight: 'bold'
+  },
+  infoText:{
+    fontSize: 15,
     color: 'black',
   }
 });

@@ -10,7 +10,7 @@ import {
 import {useRecoilValue} from 'recoil';
 
 import userTokenState from '../../atoms/userTokenState';
-import LightBlueButton from '../../components/buttons/LightBlueButton';
+import OrangeButton from '../../components/buttons/LightBlueButton';
 import ScreenContainer from '../../components/layout/ScreenContainer';
 import CustomTextInput from '../auth/components/CustomTextInput';
 import {RootStackParamList} from '../RootStackNavigator';
@@ -83,7 +83,7 @@ const CreateProfileScreen: React.FC<Props> = ({navigation, route}) => {
           onChangeText={onChangeNickName}
         />
         {/* <LightBlueButton title="클럽 정보수정" onPress={onSave} /> */}
-        <LightBlueButton title="클럽 가입하기" onPress={onSave} />
+        <OrangeButton title="클럽 가입하기" onPress={onSave} />
         {/* <CancelButton onPress={onCancel} /> */}
         {/* <GrayButton title="클럽 탈퇴하기" onPress={onDeleteProfile} /> */}
       </KeyboardAvoidingView>

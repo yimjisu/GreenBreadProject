@@ -4,10 +4,8 @@ import {useCallback} from 'react';
 import {useEffect} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import PublicText from '../../../components/common/PublicText';
-
+import firestore from '@react-native-firebase/firestore';
 import StoreListItem from './StoreListItem';
-import {getDocsId} from '../../../../lib/firestore';
-
 
 const StoreList = ({navigation, title, state}) => {
   const [storeList, setStoreList] = useState([]);
@@ -15,9 +13,17 @@ const StoreList = ({navigation, title, state}) => {
   useEffect(() => {
     async function init() {
       try {
-        // [TODO] Backend
-        const data = await getDocsId('store');
-        setStoreList(data);
+        firestore()
+        .collection('store')
+        .where("openState", "==", state).onSnapshot(
+          (querySnapshot) => {
+          var stores = [];
+          querySnapshot.forEach((doc) => {
+            stores.push(doc.id);
+          })
+          console.log('stores', stores);
+          setStoreList(stores);
+        });
       } catch (error) {
         console.error(error);
       }
@@ -29,24 +35,23 @@ const StoreList = ({navigation, title, state}) => {
     navigation.navigate('StoreHome', {
       storeId,
     });
-  });
+  }, [navigation]);
 
   return (
-      <View style={styles.container}>
+    <View style={styles.container}>
       <PublicText style={styles.title}>{title}</PublicText>
-        <ScrollView horizontal>
-        {storeList.map((id) => {
+      <ScrollView horizontal>
+        {storeList.map(item => {
           return (
             <StoreListItem
-              key={id}
-              id={id}
-              onPress={onPressStore(id)}
-              state={state}
+              key={item}
+              id={item}
+              onPress={onPressStore(item)}
             />
           );
         })}
-        </ScrollView>
-      </View>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -58,9 +63,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   scrollContainer: {
-    flex:1,
-    alignItems: "flex-start",
-    flexWrap: 'wrap'
+    flex: 1,
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
   },
   title: {
     color: 'orange',
@@ -68,7 +73,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderBottomColor: '#D9D9D9',
     borderBottomWidth: 1,
-  }
+  },
 });
 
 export default StoreList;

@@ -10,7 +10,7 @@ type Props = {
   disabled?: boolean;
 };
 
-const LightBlueButton: React.FC<Props> = ({
+const OrangeButton: React.FC<Props> = ({
   title,
   style,
   onPress,
@@ -29,7 +29,7 @@ const LightBlueButton: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#FC6D26',
+    backgroundColor: '#FF9E58',
     borderWidth: 0,
   },
   text: {
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LightBlueButton;
+export default OrangeButton;

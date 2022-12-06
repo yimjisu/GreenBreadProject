@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {useRecoilState} from 'recoil';
 
-import LightBlueButton from '../../components/buttons/LightBlueButton';
+import OrangeButton from '../../components/buttons/LightBlueButton';
 import PublicText from '../../components/common/PublicText';
 import Logo from '../../components/layout/Logo';
 import ScreenContainer from '../../components/layout/ScreenContainer';
@@ -89,7 +89,7 @@ const SignInScreen: React.FC<Props> = ({navigation}) => {
             setPassword(text);
           }}
         />
-        <LightBlueButton title="로그인" onPress={onSignIn} />
+        <OrangeButton title="로그인" onPress={onSignIn} />
         <View style={styles.signUpContainer}>
           <PublicText style={styles.infoText}>Green Bread가 처음이신가요?</PublicText>
           <TouchableOpacity style={styles.signUpButton} onPress={onSignUp}>

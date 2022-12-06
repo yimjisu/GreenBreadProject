@@ -14,10 +14,6 @@ const Tab = createMaterialTopTabNavigator();
 type Props = NativeStackScreenProps<RootStackParamList, 'StoreHome'>;
 const StoreHomeScreen: React.FC<Props> = ({navigation, route}) => {
   const {storeId} = route.params;
-
-  useEffect(() => {
-    // todo: 네트워킹
-  }, []);
   return (
     <ScreenContainer>
       <Tab.Navigator>

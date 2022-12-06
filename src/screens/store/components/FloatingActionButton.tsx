@@ -3,19 +3,19 @@ import React, { useCallback } from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const ICON = require('../../../assets/images/icon-writing.png');
+const ICON = require('../../../assets/images/ShoppingCartOutlinedWhite.png');
 
 type Props = {
   clubId: number;
 };
 
-const FloatingActionButtton: React.FC<Props> = ({clubId}) => {
+const FloatingActionButtton: React.FC<Props> = ({productId, number}) => {
   const inset = useSafeAreaInsets();
   const navigation = useNavigation();
 
   const onPress = useCallback(() => {
-    navigation.navigate('ArticleWrite', {
-      clubId,
+    navigation.navigate('OrderScreen', {
+      productId,
     });
   }, [navigation]);
 

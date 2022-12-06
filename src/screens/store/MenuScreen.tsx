@@ -1,21 +1,29 @@
-
 import PublicText from '../../components/common/PublicText';
-import { FlatList, StyleSheet, View } from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import React, {useState, useEffect, useCallback} from 'react';
-import {getDocsId} from '../../../lib/firestore';
 import ProductItem from './components/ProductItem';
+import firestore from '@react-native-firebase/firestore';
+import FloatingActionButtton from './components/FloatingActionButton';
 
 const MenuScreen = ({navigation, route}) => {
-  const id = route.params.storeId;
+  const storeId = route.params.storeId;
   const [productList, setProductList] = useState([]);
-  
+
   useEffect(() => {
     async function init() {
       try {
-        // [TODO] Backend
-        const temp = await getDocsId('store/'+id+'/product');
-        console.log('temp', temp);
-        setProductList(temp);
+        firestore()
+          .collection('store')
+          .doc(storeId)
+          .collection('product')
+          .onSnapshot(querySnapshot => {
+            var products = [];
+            querySnapshot.forEach(doc => {
+              products.push(doc.id);
+            });
+            console.log('product', products);
+            setProductList(products);
+          });
       } catch (error) {
         console.error(error);
       }
@@ -23,36 +31,39 @@ const MenuScreen = ({navigation, route}) => {
     init();
   }, []);
 
-  const onPressProduct = useCallback((storeId: number, productId:number) => async () => {
-    // navigation.navigate('StoreHome', {
-    //   storeId,
-    // });
-  });
+  const onPressProduct = useCallback(
+    (storeId: number, productId: number) => async() => {
+      navigation.navigate('ShoppingCartScreen', {
+        storeId: storeId,
+        productId: productId,
+      });
+  }, [navigation]);
 
   return (
     <>
-      <FlatList
-        data={productList}
-        renderItem={(productId) => {
+       <ScrollView>
+        {productList.map(item => {
           return (
             <ProductItem
-              storeId={id}
-              productId={productId.item}
-              onPress={onPressProduct(id, productId.item)}
+              key={item}
+              storeId={storeId}
+              productId={item}
+              onPress={onPressProduct(storeId, item)}
             />
           );
-        }}
-      />
+        })}
+      </ScrollView>
+      <FloatingActionButtton />
     </>
   );
 };
-
 
 const listItemStyles = StyleSheet.create({
   container: {
     borderWidth: 1,
     padding: 20,
-  }, text: {
+  },
+  text: {
     color: 'black',
   },
 });

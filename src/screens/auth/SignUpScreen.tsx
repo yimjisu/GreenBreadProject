@@ -4,7 +4,7 @@ import {useMemo} from 'react';
 import {KeyboardAvoidingView, Platform, StyleSheet} from 'react-native';
 
 import CancelButton from '../../components/buttons/CancelButton';
-import LightBlueButton from '../../components/buttons/LightBlueButton';
+import OrangeButton from '../../components/buttons/LightBlueButton';
 import ScreenContainer from '../../components/layout/ScreenContainer';
 import {RootStackParamList} from '../RootStackNavigator';
 import CustomTextInput from './components/CustomTextInput';
@@ -117,7 +117,7 @@ const SignUpScreen: React.FC<Props> = ({navigation}) => {
           value={passwordRe}
           onChangeText={onChangePasswordre}
         />
-        <LightBlueButton
+        <OrangeButton
           title="가입하기"
           onPress={onSignUp}
           style={[
