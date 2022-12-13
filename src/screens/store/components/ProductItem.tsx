@@ -5,6 +5,7 @@ import PublicText from '../../../components/common/PublicText';
 import firestore from '@react-native-firebase/firestore';
 
 const DEFAULT_IMAGE = require('../../../assets/product-images/단팥빵.png');
+import { images } from '../../../../lib/image';
 const ProductItem: React.FC<Props> = ({storeId, productId, onPress}) => {
   const [data, setData] = useState({});
   useEffect(() => {
@@ -15,8 +16,7 @@ const ProductItem: React.FC<Props> = ({storeId, productId, onPress}) => {
           .doc(storeId)
           .collection('product')
           .doc(productId)
-          .get()
-          .then(doc => {
+          .onSnapshot(doc => {
             if (doc.exists) {
               setData(doc.data());
             } else {
@@ -34,7 +34,7 @@ const ProductItem: React.FC<Props> = ({storeId, productId, onPress}) => {
   return (
       <TouchableOpacity style={styles.container} onPress={onPress}>
         <Image
-          source={data.image ? {url: image} : DEFAULT_IMAGE}
+          source={data.img_path && images[data.img_path] ? images[data.img_path] : DEFAULT_IMAGE}
           style={styles.backgroundImage}>
         </Image>      
         <View style={styles.titleContainer}>
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   backgroundImage: {
-    width: 150,
-    height: 150,
+    width: 100,
+    height: 100,
     borderRadius: 20,
     overflow: 'hidden',
     borderWidth: 1,
@@ -72,13 +72,13 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   title: {
-    fontSize: 16,
+    fontSize: 18,
     color: 'black',
     fontWeight: 'bold'
   },
   infoText:{
     fontSize: 15,
-    color: 'black',
+    color: 'gray',
   }
 });
 export default ProductItem;

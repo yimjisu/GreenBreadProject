@@ -8,7 +8,7 @@ import FloatingActionButtton from './components/FloatingActionButton';
 const MenuScreen = ({navigation, route}) => {
   const storeId = route.params.storeId;
   const [productList, setProductList] = useState([]);
-
+  
   useEffect(() => {
     async function init() {
       try {
@@ -21,7 +21,6 @@ const MenuScreen = ({navigation, route}) => {
             querySnapshot.forEach(doc => {
               products.push(doc.id);
             });
-            console.log('product', products);
             setProductList(products);
           });
       } catch (error) {
@@ -39,6 +38,11 @@ const MenuScreen = ({navigation, route}) => {
       });
   }, [navigation]);
 
+  const onPressBasket = useCallback(() => {
+    navigation.navigate('TotalShoppingCartScreen');
+  }, [navigation]);
+
+
   return (
     <>
        <ScrollView>
@@ -53,7 +57,7 @@ const MenuScreen = ({navigation, route}) => {
           );
         })}
       </ScrollView>
-      <FloatingActionButtton />
+      <FloatingActionButtton onPress={onPressBasket}/>
     </>
   );
 };

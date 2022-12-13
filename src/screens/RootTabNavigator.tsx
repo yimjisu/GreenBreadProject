@@ -29,7 +29,9 @@ const RootTabNavigator: React.FC<Props> = ({navigation}) => {
         },
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
-      })}>
+      })}
+      
+      >
       <Tab.Screen name="홈" options={{ headerShown: false }} component={HomeScreen} />
       <Tab.Screen name="검색" component={SearchScreen} />
       <Tab.Screen name="주문 내역" component={OrderScreen} />

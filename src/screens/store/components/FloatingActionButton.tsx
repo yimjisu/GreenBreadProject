@@ -9,16 +9,8 @@ type Props = {
   clubId: number;
 };
 
-const FloatingActionButtton: React.FC<Props> = ({productId, number}) => {
+const FloatingActionButtton: React.FC<Props> = ({productId, number, onPress}) => {
   const inset = useSafeAreaInsets();
-  const navigation = useNavigation();
-
-  const onPress = useCallback(() => {
-    navigation.navigate('OrderScreen', {
-      productId,
-    });
-  }, [navigation]);
-
   return (
     <TouchableOpacity
       style={[styles.container, {bottom: inset.bottom + 20}]}
@@ -30,14 +22,15 @@ const FloatingActionButtton: React.FC<Props> = ({productId, number}) => {
 
 const styles = StyleSheet.create({
   container: {
+    elevation: 3,
     borderRadius: 50,
-    borderWidth: 3,
     width: 70,
     height: 70,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
     right: 20,
+    backgroundColor: "#FF9E58",
   },
   icon: {
     width: 25,

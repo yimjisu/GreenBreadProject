@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 const userTokenState = atom<string | null>({
   key: 'userTokenState', // unique ID (with respect to other atoms/selectors),
-  default: null, // default value (aka initial value)
+  default: {}, // default value (aka initial value)
 });
 
 export default userTokenState;

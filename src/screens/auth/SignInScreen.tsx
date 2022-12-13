@@ -45,15 +45,17 @@ const SignInScreen: React.FC<Props> = ({navigation}) => {
 
       // token = post_auth_authenticate();
       // {userId, upassword}
+      if(id == "" || password == "") return;
       const token = await signIn(id, password);
       console.log(token);
       await AsyncStorage.setItem('token', token);
       setUserTokenState(token);
     } catch (error) {
+      console.log(error);
       const alertMessage = resultMessages[e.code]
         ? resultMessages[e.code]
-        : '알 수 없는 이유로 회원A가입에 실패하였습니다.';
-      Alert.alert('회원가입 실패', alertMessage);
+        : '알 수 없는 이유로 로그인에 실패하였습니다.';
+      Alert.alert('로그인 실패', alertMessage);
     }
 
     // navigation.navigate('ClubList');
@@ -65,11 +67,10 @@ const SignInScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <ScreenContainer style={styles.screenContainer}>
-
       <KeyboardAvoidingView
         style={styles.rootContainer}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-              <Logo/>
+        <Logo/>
         <PublicText style={styles.labelText}>아이디</PublicText>
         <CustomTextInput
           placeholder="아이디를 입력하세요."

@@ -1,19 +1,19 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import PublicText from '../../../components/common/PublicText';
+import PublicText from '../common/PublicText';
 
-const NumericInput: React.FC<Props> = ({number, onIncrease, onDecrease, style}) => {
+const NumericInput: React.FC<Props> = ({number, limit, onIncrease, onDecrease, style}) => {
 
   return (
-    <View style={[styles.container, style]}>
-       <TouchableOpacity style={styles.input} onPress={onDecrease}>
-        <PublicText style={styles.inputText}>-</PublicText>
+    <View style={[style,styles.container]}>
+       <TouchableOpacity style={styles.input} onPress={onDecrease} disabled={number == 1}>
+        <PublicText style={number == 1 ? styles.disabledText : styles.inputText}>-</PublicText>
        </TouchableOpacity>
       <View style={styles.textContainer}>
         <PublicText style={styles.numberText}>{number}개</PublicText>
       </View>
-      <TouchableOpacity style={styles.input} onPress={onIncrease}>
-        <PublicText style={styles.inputText}>+</PublicText>
+      <TouchableOpacity style={styles.input} onPress={onIncrease} disabled={number == limit}>
+        <PublicText style={number == limit ? styles.disabledText : styles.inputText}>+</PublicText>
       </TouchableOpacity>
     </View>
   );
@@ -40,6 +40,11 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     color: '#FF6B2C',
+  },
+  disabledText : {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: 'rgba(0, 0, 0, 0.1)'
   },
   textContainer: {
     flex: 2,
